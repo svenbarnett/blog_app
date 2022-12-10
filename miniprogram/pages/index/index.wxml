@@ -1,0 +1,130 @@
+
+<scroll-view scroll-y class="DrawerPage {{modalName=='viewModal'?'show':''}}" bindscroll="onPageScroll" scroll-with-animation="true" style="background-color: {{skin?'#ffffff':'#ffffff'}};" bindscrolltolower="loadMore">
+    <cu-custom bgColor="bg-lightGrey" isBack="{{false}}" isCustom="{{false}}" isNav="{{scrollTop>120?false:true}}" isFixed="fixed">
+        <view slot="backText">返回</view>
+        <view slot="content" class="text-shadow-meows">
+            <text class="text-white text-bold">{{BlogName}}</text>
+        </view>
+    </cu-custom>
+    <wh-addTips text="Hello~ 点击「添加到我的小程序」" duration="2"></wh-addTips>
+    <view bindtouchstart="touchStart" bindtouchend="touchEnd" class="flex justify-center align-center bg-white" style="width:100%; height:400rpx; background-image:url(https://www.pswen.cn/images/img/cover_2.jpg); background-repeat: no-repeat; background-size: 100% 100%;">
+        <view class="grid col-1 margin-bottom text-center">
+            <view class="text-xxxl padding text-shadow-meow" role="" aria-label="">
+                <text class="text-white text-bold">{{BlogName}}</text>
+            </view>
+            <view class="text-xl padding text-shadow-meow text-white text-bold" role="" aria-label="">
+                <wh-typeWriter whContent="{{jinrishici}}"></wh-typeWriter>
+            </view>
+        </view>
+    </view>
+    <view class="home text-shadow-meow" bindtap="showModal" data-target="viewModal">
+        <view class="home-btn home-img shadow-blur"></view>
+    </view>
+    <!-- catch:touchstart="maopao" catch:touchend="maopao" -->
+    <view style="margin-top: -100rpx;">
+        <swiper bindchange="cardSwiper" class="card-swiper {{DotStyle?'square-dot':'round-dot'}}" circular="true" autoplay="true" interval="5000" duration="500">
+            <swiper-item wx:for="{{bannerPost? bannerPost:5}}" wx:for-item="bannerPost" wx:for-index="index" wx:key="keyId" class="{{cardCur==index?'cur':''}}" wx:if="{{index<10}}">
+                <navigator url="../post/post?postId={{bannerPost.id}}" open-type="navigate">
+                    <view class="swiper-item" style="padding: 20rpx; padding-bottom:26rpx;">
+                        <view class="carousel-img radius shadow-meow bg-lightGrey bg-img" style="background-image:url({{bannerPost.thumbnail}}); width:100%">
+                            <view class="bg-maskCard flex-sub" style="border-radius:6rpx; height:100%; position:relative;">
+                                <view class="padding-lg text-white">
+                                    <view class="padding-xs text-xl text-bold text-shadow">
+                                        {{bannerPost.title}}
+                                    </view>
+                                </view>
+                                <view class="padding-lg text-white" style="position:absolute; bottom:0; right:0;">
+                                    <view class="padding-xs text-df text-bold text-shadow">
+                                        {{bannerPost.createTime}}
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </navigator>
+            </swiper-item>
+        </swiper>
+    </view>
+    <view style="margin-right:20rpx; margin-left:20rpx;">
+        <official-account style=""></official-account>
+    </view>
+    <!--
+    <view class="cu-bar search bg-white">
+        <view class="search-form round">
+            <text class="cuIcon-search"></text>
+            <input bindinput="Search" id="search" name="content" type="text" placeholder="搜索文章、关键词" confirm-type="search"></input>
+        </view>
+        <view class="action">
+            <button class="cu-btn bg-lightBlue shadow-blur round" bindtap="SearchSubmit">搜索</button>
+        </view>
+    </view>
+    -->
+
+    <scroll-view scroll-x class="bg-white nav text-center" style="background-color: {{skin?'#ffffff':'#ffffff'}};">
+        <view class="cu-item {{index==TabCur?'text-blue text-shadow text-xl':''}}  text-bold text-lg" wx:for="{{categories}}" wx:key="keyId" wx:for-index="index" bindtap="tabSelect" data-slug="{{item.slug}}" data-id="{{index}}" style="line-height:60rpx;">
+            {{item.name}}
+        </view>
+    </scroll-view>
+    
+    <view class="ad" style="margin:20rpx;">
+        <ad unit-id="adunit-db7d552ed896d403" ad-intervals="30"></ad>
+    </view>
+    <!-- 瀑布流 -->
+    <!-- <view class="grid col-2 content text-center" bindtouchstart="touchStart" bindtouchend="touchEnd" wx:if="{{0==TabCur}}"> -->
+    <view class="grid col-2 content text-center" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <view class="fall-left">
+            <block wx:for="{{postList}}" wx:key="keyId" wx:for-index="index" wx:for-item="postList" wx:if="{{index%2==0}}">
+                <navigator url="../post/post?postId={{postList.id}}" open-type="navigate" data-id="{{index}}">
+                    <view class="margin-sm radius shadow-blur bg-img {{colourList[(index+randomNum)%10].colour}} animation-scale-up" style="margin-right:10rpx; margin-top:0; background-image:url({{postList.skin?postList.thumbnail:''}}); animation-delay: {{(index+1)*0.2*animationTime}}s;">
+                        <view class="bg-maskCards flex-sub align-end" style="border-radius:6rpx; height:100%;">
+                            <view class="padding-lg text-white">
+                                <view class="padding-xs text-xs text-bold text-shadow">
+                                    {{postList.title}}
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </navigator>
+            </block>
+        </view>
+        <view class="fall-right">
+            <block wx:for="{{postList}}" wx:key="keyId" wx:for-index="index" wx:for-item="postList" wx:if="{{index%2==1}}">
+                <navigator url="../post/post?postId={{postList.id}}" open-type="navigate" data-id="{{index}}">
+                    <view class="margin-sm radius shadow-blur bg-img {{colourList[(index+randomNum)%10].colour}} animation-scale-up" style="margin-left:10rpx; margin-top:0; background-image:url({{postList.skin?postList.thumbnail:''}}); animation-delay: {{(index+1)*0.2*animationTime}}s;">
+                        <view class="bg-maskCards flex-sub align-end" style="border-radius:6rpx; height:100%;">
+                            <view class="padding-lg text-white">
+                                <view class="padding-xs text-xs text-bold text-shadow">
+                                    {{postList.title}}
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </navigator>
+            </block>
+        </view>
+    </view>
+    <view class="text-xs flex justify-center" style="height:100rpx;"></view>
+    <view class="flex justify-center grid col-1" hidden="{{moreFlag}}" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <view class="bg-img animation-scale-up shadow-blur margin" style="background-image: url({{bottomImg}});height: 300rpx; width:300rpx;"></view>
+        <view class="text-xs flex justify-center animation-scale-up" style="width:100%; text-align:center;">
+            <view class="text-grey">{{noPostTitle}}</view>
+        </view>
+    </view>
+ 
+    <view class="text-xs flex justify-center" style="height:100rpx;"></view>
+ 
+    <view class="grid col-1 text-xs">
+        <view class="flex justify-center padding-xs">
+            <view class="text-grey" style="margin-right:4rpx;">{{ miniProgram.envVersion }} Version</view>
+            <view class="text-techBlue text-bold">{{ miniProgram.version }}</view>
+        </view>
+        <view class="flex justify-center">
+            <view class="text-grey" style="margin-right:4rpx;">© {{footer.since}} – {{footer.end}} {{footer.beian}} </view>
+        </view>
+        <view class="flex justify-center">
+            <view class="text-grey" style="margin-right:4rpx;">Author:</view>
+            <view class="text-lightBlue">{{footer.author}}</view>
+        </view>
+    </view>
+
+</scroll-view>

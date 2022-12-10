@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/post/post",
+    "pages/friends/friends",
+    "pages/journal/journal",
+    "pages/test/test",
+    "pages/photos/photos"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "ColorUI",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [{
+      "iconPath": "image/blog.png",
+      "selectedIconPath": "image/blog-active.png",
+      "pagePath": "pages/index/index",
+      "text": "博客"
+    }, {
+      "iconPath": "image/pics.png",
+      "selectedIconPath": "image/pics-active.png",
+      "pagePath": "pages/photos/photos",
+      "text": "图库"
+    } , {
+      "iconPath": "image/test.png",
+      "selectedIconPath": "image/test-active.png",
+      "pagePath": "pages/test/test",
+      "text": "实验"
+    }]
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom",
+    "wh-typeWriter": "/components/typeWriter/wh-typeWriter",
+    "wh-authorCard": "/components/authorCard/wh-authorCard",
+    "wh-addTips": "/components/addTips/wh-addTips"
+  },
+  "plugins": {
+    "htmltowxml": {
+      "version": "latest",
+      "provider": "wxa51b9c855ae38f3c"
+    },
+    "poster": {
+      "version": "latest",
+      "provider": "wx8a6f7c4b3d410554"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}
